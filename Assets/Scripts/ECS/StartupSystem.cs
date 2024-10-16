@@ -1,4 +1,5 @@
 using ECS.Configs;
+using ECS.Extentions;
 using ECS.Systems;
 using LeoEcsPhysics;
 using Leopotam.EcsLite;
@@ -16,12 +17,14 @@ namespace ECS
         {
             _world = new EcsWorld();
             _systems = new EcsSystems(_world, _config);
+
+            SharedData.world = _world;
             EcsPhysicsEvents.ecsWorld = _world;
 
             _systems.Add(new InitTowerSystem())
                 .Add(new InitEnemySystem())
+                .Add(new MovementSystem())
                 .Add(new ShootingTowerSystem())
-                .DelHerePhysics()
                 .Init();
         }
 
